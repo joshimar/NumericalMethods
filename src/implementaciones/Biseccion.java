@@ -26,7 +26,7 @@ public class Biseccion extends MetodoNumerico {
         try {
             System.out.println();
             System.out.println("a"+tab+tab+"b"+tab+tab+"c"+tab+tab+"f(a)"+tab+tab+"f(b)"+tab+tab+"f(c)");
-            float resultado = (float) buscar();
+            float resultado = (float) calcularRaiz();
             System.out.println();
             System.out.println("La raíz encontrada es: "+resultado);
             System.out.println();
@@ -40,7 +40,7 @@ public class Biseccion extends MetodoNumerico {
        return "Bisección (búsqueda binaria)";
     }
     
-    private double buscar() throws Exception {
+    private double calcularRaiz() throws Exception {
         
         double c = (limiteDerecha+limiteIzquierda) / 2; // Calcular punto medio entre limites
         double fc = evaluarFuncion(c); // Evaluar funcion para el punto medio
@@ -69,10 +69,10 @@ public class Biseccion extends MetodoNumerico {
         
         if(Math.signum(fc) == Math.signum(fi)) {
             limiteIzquierda = c; // Descartamos la mitad izquierda
-            return buscar(); // Continuamos la búsqueda sobre la mitad derecha
+            return calcularRaiz(); // Continuamos la búsqueda sobre la mitad derecha
         } else if(Math.signum(fc) == Math.signum(fd))  {
             limiteDerecha = c; // Descartamos la mitad derecha
-            return buscar(); // Continuamos la búsqueda sobre la mitad izquierds
+            return calcularRaiz(); // Continuamos la búsqueda sobre la mitad izquierds
         }
         
         throw new Exception("No es posible obtener la raiz.");

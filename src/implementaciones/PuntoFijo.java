@@ -31,7 +31,7 @@ public class PuntoFijo extends MetodoNumerico {
         try {
             System.out.println();
             System.out.println("p"+tab+tab+"p0"+tab+tab+"evaluación");
-            float resultado = (float) buscar();
+            float resultado = (float) calcularRaiz();
             System.out.println();
             System.out.println("La raíz encontrada es: "+resultado);
             System.out.println();
@@ -45,7 +45,7 @@ public class PuntoFijo extends MetodoNumerico {
         return "Punto Fijo";
     }
     
-    private double buscar() throws Exception {
+    private double calcularRaiz() throws Exception {
         for(int i=0; i<max; i++) {
             double p = g(p0);
             double evaluacion = p-p0;
