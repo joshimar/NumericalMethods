@@ -1,7 +1,6 @@
 package metodosnumericos;
 
-import implementaciones.Biseccion;
-import implementaciones.NewtonRaphson;
+import implementaciones.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,22 +15,25 @@ public class Menu {
 
     private List<String> opciones;
     private Map<Integer, MetodoNumerico> instancias;
-    private List<Class<? extends MetodoNumerico>> algoritmos;
+    private List<Class<? extends MetodoNumerico>> algoritmos = Arrays.asList(
+    // Cuando implementamos un nuevo algoritmo, lo registramos aquí:
+                    NewtonRaphson.class, 
+                    Biseccion.class,
+                    PuntoFijo.class);
     
+    // Constructor vacío
     public Menu() {
         cargarAlgoritmos();
     }
     
-    /**
-     * @param args the command line arguments
-     */
+    // Punto de entrada
     public static void main(String[] args) {
         Menu menu = new Menu();
-        int algoritmoSeleccionado = 0;
+        int algoritmoSeleccionado = 2;
         menu.ejecutarAlgoritmo(algoritmoSeleccionado);
     }
     
-    public void ejecutarAlgoritmo(int algoritmoSeleccionado) {
+    private void ejecutarAlgoritmo(int algoritmoSeleccionado) {
         MetodoNumerico algoritmo = instancias.get(algoritmoSeleccionado);
         System.out.println(algoritmo.nombre());
         algoritmo.leerParametros();
@@ -39,22 +41,16 @@ public class Menu {
     }
     
     private void cargarAlgoritmos() {
-        // Cuando implementamos un nuevo algoritmo, lo registramos aquí
-            algoritmos = Arrays.asList(
-                    NewtonRaphson.class, 
-                    Biseccion.class);
-            
-            opciones = new ArrayList<>();
-            
-        try {
-            int posicion=0;
-            instancias = new HashMap<>();
-            for(Class<? extends MetodoNumerico> algoritmo : algoritmos) {
+        opciones = new ArrayList<>();
+        instancias = new HashMap<>();
+        int posicion=0;
+        for(Class<? extends MetodoNumerico> algoritmo : algoritmos) {
+            try {
                 instancias.put(posicion, algoritmo.newInstance());
-                opciones.add(instancias.get(posicion).nombre());
-                posicion++;
-            }
-        } catch (Exception e) { } 
+            } catch (Exception e) { 
+                System.out.println("No se pudo cargar algoritmo "+algoritmo.getSimpleName()+". "+e.getMessage());
+            } 
+            opciones.add(instancias.get(posicion++).nombre());
+        }
     }
-    
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public abstract class MetodoNumerico {
     
-    private double[] funcion; // Arreglo que guarda coheficientes de la funcion C0 + C1x + C2x^2 + C3x^3 ...
+    protected double[] funcion; // Arreglo que guarda coheficientes de la funcion C0 + C1x + C2x^2 + C3x^3 ...
     protected String tab="\t"; // Caracter para generar tablas
     protected DecimalFormat formato = new DecimalFormat("00000.00000"); // Con el que podemos imprimir vairables con muchos decimales solamente mostrando los necesarios del punto
             
@@ -17,13 +17,10 @@ public abstract class MetodoNumerico {
     public abstract void calcular();
     public abstract String nombre();
     
-    public void leerEcuacion() {
-        int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
-          
+    public void leerPolinomio(int grado) {
         this.funcion = new double[grado+1]; // Agregamos 1 por la constante C0
-        System.out.println("Intruduce los coheficientes de la ecuacion, en orden comenzando por la constante.");
-        System.out.println("Por ejemplo, los coheficientes de la ecuacion de segundo grado C0 + C1x + C2x^2");
-        System.out.println("deben ser introducidos en este orden: C0, C1, C2");
+        String ejemplo = generarEjemplo(grado);
+        System.out.println("Intruduce los coheficientes de la ecuación "+ejemplo+" en orden comenzando por la constante.");
         
         for(int i=0; i<=grado; i++) {
             double coheficiente = leerNumero("C"+i, false);
@@ -31,7 +28,7 @@ public abstract class MetodoNumerico {
         }
     }
     
-    public double leerNumero(String mensaje, boolean checarPositivo ) {
+    public double leerNumero(String mensaje, boolean checarPositivo) {
         System.out.println(mensaje);
         Scanner scanner = new Scanner(System.in);
         double lectura = 0d;
@@ -41,11 +38,11 @@ public abstract class MetodoNumerico {
                 System.out.print(">> ");
                 lectura = scanner.nextDouble();
             } catch(Exception e) {
-                System.out.println("Favor de introducir un numero.");
+                System.out.println("Favor de introducir un número.");
             }
             
             if(checarPositivo && lectura <= 0) {
-                System.out.println("El numero introducido debe ser un valor entero positivo.");
+                System.out.println("El número introducido debe ser un valor entero positivo.");
             } else {
                 break;
             }
@@ -72,5 +69,17 @@ public abstract class MetodoNumerico {
         }
         
         return resultado;
+    }
+
+    private String generarEjemplo(int grado) {
+        StringBuilder sb = new StringBuilder("C0 + ");
+        for(int i=1; i<=grado; i++) {
+            sb.append("C").append(i);
+            sb.append("x^").append(i);
+            if(i<grado) {
+                sb.append(" + ");
+            } 
+        }
+        return sb.toString();
     }
 }

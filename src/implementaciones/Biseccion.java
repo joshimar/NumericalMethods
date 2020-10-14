@@ -14,7 +14,8 @@ public class Biseccion extends MetodoNumerico {
     
     @Override
     public void leerParametros() {
-        leerEcuacion();
+        int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
+        leerPolinomio(grado);
         limiteIzquierda = leerNumero("¿Cuál el límite izquierdo inicial?", false);
         limiteDerecha = leerNumero("¿Cuál el límite derecho inicial?", false);
         epsilon = leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
