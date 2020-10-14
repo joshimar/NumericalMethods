@@ -74,6 +74,8 @@ public abstract class MetodoNumerico {
         } catch(Exception e) {
             throw new Exception("Favor de introducir solo números separados por un espacio." + e.getMessage());
         }
+        
+        System.out.println("La ecuación introducida es: "+mostrarEcuacion());
     }
     
     public double evaluarFuncion(double x) { // Pasamos el valor de x
@@ -102,6 +104,21 @@ public abstract class MetodoNumerico {
             sb.append("C").append(i);
             sb.append("x^").append(i);
             if(i<grado) {
+                sb.append(" + ");
+            } 
+        }
+        return sb.toString();
+    }
+    
+    private String mostrarEcuacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(funcion[0]).append(" + ");
+        for(int i=1; i<funcion.length; i++) {
+            sb.append(funcion[i]).append("x");
+            if(i>1) {
+                sb.append("^").append(i);
+            }
+            if(i<funcion.length-1) {
                 sb.append(" + ");
             } 
         }
