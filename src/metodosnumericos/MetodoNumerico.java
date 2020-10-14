@@ -19,12 +19,17 @@ public abstract class MetodoNumerico {
     
     public void leerPolinomio(int grado) {
         this.funcion = new double[grado+1]; // Agregamos 1 por la constante C0
-        String ejemplo = generarEjemplo(grado);
-        System.out.println("Intruduce los coheficientes de la ecuación "+ejemplo+" en orden comenzando por la constante.");
         
-        for(int i=0; i<=grado; i++) {
-            double coheficiente = leerNumero("C"+i, false);
-            this.funcion[i] = coheficiente;
+        String ejemplo = generarEjemplo(grado);
+        
+        while(true) {
+            System.out.println("Intruduce los coheficientes de la ecuación "+ejemplo+" en orden comenzando por la constante C0 utilizando espacios para separar cada uno.");
+            try {
+                leerCoheficientes();
+                break;
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
     
@@ -49,6 +54,26 @@ public abstract class MetodoNumerico {
         }
         
         return lectura;
+    }
+    
+    private void leerCoheficientes() throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        String[] lectura = null;
+        
+        try {
+            System.out.print(">> ");
+            lectura = scanner.nextLine().trim().split(" ");
+            
+            if(lectura.length != funcion.length) {
+                throw new Exception("Debes introducir exactamente "+funcion.length+" coheficientes.");
+            }
+            
+            for(int i=0; i<funcion.length; i++) {
+                funcion[i] = Double.parseDouble(lectura[i]);
+            }
+        } catch(Exception e) {
+            throw new Exception("Favor de introducir solo números separados por un espacio." + e.getMessage());
+        }
     }
     
     public double evaluarFuncion(double x) { // Pasamos el valor de x
