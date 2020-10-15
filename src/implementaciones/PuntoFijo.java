@@ -11,14 +11,15 @@ public class PuntoFijo extends MetodoNumerico {
     private double p0; // Punto inicial
     private double epsilon; // Tolerancia
     private int max; // Número máximo de iteraciones
-    private final int grado = 3; // Problema definido para una ecuación de tercer grado
+    private int grado ; // Problema definido para una ecuación de segundo o tercer grado
     
     @Override
     public void leerParametros() {
         leerPolinomio(grado); 
         p0 = leerNumero("¿Cuál el punto inicial?", false);
         max =  (int) leerNumero("¿Cuál es el número máximo de iteraciones?", true);
-        epsilon = leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
+        grado =  (int) leerNumero("¿Cuál es el grado de la ecuacion? solamente puede ser 2 o 3", true);
+        epsilon = 0.001;//leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
     }
 
     @Override
@@ -60,7 +61,22 @@ public class PuntoFijo extends MetodoNumerico {
     
     // Función iteradora
     private double g(double punto) throws Exception {
-        return g3(punto); 
+        switch(grado){
+            case 2: return g2(punto);
+            default: return g3(punto);
+        }
+    }
+    
+    private double g2(double punto) throws Exception {
+        
+        double numerador = -funcion[0];
+        double denominador = funcion[2]*punto + funcion[1];
+        
+        if(funcion[3] == 0 || denominador == 0) {
+            throw new Exception("La raíz no pudo ser encontrada.");
+        }
+        
+        return numerador / denominador;
     }
     
     // Función iteradora para una ecuación de tercer grado.

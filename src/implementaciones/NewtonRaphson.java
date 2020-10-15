@@ -9,13 +9,15 @@ public class NewtonRaphson extends MetodoNumerico {
     
     private double epsilon;
     private double valorInicial;
+    private int limite;
 
     @Override
     public void leerParametros() {
         int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
         leerPolinomio(grado);
-        this.epsilon = leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
+        this.epsilon = 0.001;//leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
         this.valorInicial = leerNumero("¿Cuál es el valor inicial?", false);
+        this.limite = (int) leerNumero("Cuantas interacciones quieres?", true);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class NewtonRaphson extends MetodoNumerico {
     private double calcularRaiz() throws Exception {
         double x = this.valorInicial;
         double relacion; 
-        
+        int cuenta = 0;
         do { 
             // Newton Raphson : xi+1 = xi - funcion(xi) / derivada(xi)
             double derivada = evaluarDerivada(x);
@@ -57,7 +59,8 @@ public class NewtonRaphson extends MetodoNumerico {
                         
             relacion = fx / derivada; 
             x = x - relacion; 
-        } while (Math.abs(relacion) >= epsilon) ;
+            cuenta++;
+        } while (Math.abs(relacion) >= epsilon && cuenta<limite) ;//mientras no eh llegado al error disponible puedo seguir
         
         return Math.round(x * 100.0) / 100.0; 
     }
