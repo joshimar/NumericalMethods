@@ -21,7 +21,8 @@ public class Menu {
     // Cuando implementamos un nuevo algoritmo, lo registramos aquí:
                     NewtonRaphson.class, 
                     Biseccion.class,
-                    PuntoFijo.class);
+                    PuntoFijo.class,
+                    ReglaFalsa.class);
     
     // Constructor vacío
     public Menu() {
