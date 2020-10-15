@@ -107,6 +107,7 @@ public abstract class MetodoNumerico {
                 sb.append(" + ");
             } 
         }
+        
         return sb.toString();
     }
     
@@ -122,6 +123,7 @@ public abstract class MetodoNumerico {
                 sb.append(" + ");
             } 
         }
+        
         return sb.toString();
     }
 }
