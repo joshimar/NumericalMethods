@@ -90,10 +90,6 @@ public abstract class MetodoNumerico {
 //        return resultado;
     }
     
-    private double evaluarFuncionEstatica(double x) {
-        return Math.pow(x, 3) + 4*Math.pow(x, 2) - 10; 
-    }
-    
     public double evaluarDerivada(double x) { // Pasamos el valor de x
         return evaluarDerivadaEstatica(x);
 //        double resultado = 0d;
@@ -104,11 +100,7 @@ public abstract class MetodoNumerico {
 //        
 //        return resultado;
     }
-    
-    private double evaluarDerivadaEstatica(double x) {
-         return 3*Math.pow(x, 2) + 8*x;
-    }
-    
+
     private String generarEjemplo(int grado) {
         StringBuilder sb = new StringBuilder("C0 + ");
         for(int i=1; i<=grado; i++) {
@@ -134,5 +126,13 @@ public abstract class MetodoNumerico {
             } 
         }
         return sb.toString();
+    }
+    
+    private double evaluarFuncionEstatica(double x) {
+        return Math.pow(x, 3) + 4*Math.pow(x, 2) - 10; 
+    }
+    
+    private double evaluarDerivadaEstatica(double x) {
+         return 3*Math.pow(x, 2) + 8*x;
     }
 }
