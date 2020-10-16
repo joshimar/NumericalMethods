@@ -13,8 +13,8 @@ public class NewtonRaphson extends MetodoNumerico {
 
     @Override
     public void leerParametros() {
-        int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
-        leerPolinomio(grado);
+//        int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
+//        leerPolinomio(grado);
         this.epsilon = 0.001;//leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
         this.valorInicial = leerNumero("¿Cuál es el valor inicial?", false);
         this.limite = (int) leerNumero("Cuantas interacciones quieres?", true);

@@ -15,10 +15,10 @@ public class PuntoFijo extends MetodoNumerico {
     
     @Override
     public void leerParametros() {
-        leerPolinomio(grado); 
         p0 = leerNumero("¿Cuál el punto inicial?", false);
         max =  (int) leerNumero("¿Cuál es el número máximo de iteraciones?", true);
-        grado =  (int) leerNumero("¿Cuál es el grado de la ecuacion? solamente puede ser 2 o 3", true);
+        //grado =  (int) leerNumero("¿Cuál es el grado de la ecuacion? solamente puede ser 2 o 3", true);
+        //leerPolinomio(grado); 
         epsilon = 0.001;//leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
     }
 

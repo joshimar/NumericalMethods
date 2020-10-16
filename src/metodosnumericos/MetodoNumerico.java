@@ -58,6 +58,7 @@ public abstract class MetodoNumerico {
     
     private void leerCoheficientes() throws Exception {
         Scanner scanner = new Scanner(System.in);
+        
         String[] lectura = null;
         
         try {
@@ -79,25 +80,35 @@ public abstract class MetodoNumerico {
     }
     
     public double evaluarFuncion(double x) { // Pasamos el valor de x
-        double resultado = 0d;
-        
-        for(int termino=0; termino<this.funcion.length; termino++) {
-            resultado += this.funcion[termino] * Math.pow(x, termino); // Multiplicamos termino por x elevado al termino correspondiente
-        }
-        
-        return resultado;
+        return evaluarFuncionEstatica(x);
+//        double resultado = 0d;
+//        
+//        for(int termino=0; termino<this.funcion.length; termino++) {
+//            resultado += this.funcion[termino] * Math.pow(x, termino); // Multiplicamos termino por x elevado al termino correspondiente
+//        }
+//        
+//        return resultado;
+    }
+    
+    private double evaluarFuncionEstatica(double x) {
+        return Math.pow(x, 3) + 4*Math.pow(x, 2) - 10; 
     }
     
     public double evaluarDerivada(double x) { // Pasamos el valor de x
-        double resultado = 0d;
-        
-        for(int termino=1; termino<this.funcion.length; termino++) { // Comenzamos lectura desde el segundo elemento porque la derivada de una constante es cero
-            resultado += this.funcion[termino] * termino * Math.pow(x, termino-1); // La derivada de un termino es = coheficiente por el termino por x elevado al (termino-1)
-        }
-        
-        return resultado;
+        return evaluarDerivadaEstatica(x);
+//        double resultado = 0d;
+//        
+//        for(int termino=1; termino<this.funcion.length; termino++) { // Comenzamos lectura desde el segundo elemento porque la derivada de una constante es cero
+//            resultado += this.funcion[termino] * termino * Math.pow(x, termino-1); // La derivada de un termino es = coheficiente por el termino por x elevado al (termino-1)
+//        }
+//        
+//        return resultado;
     }
-
+    
+    private double evaluarDerivadaEstatica(double x) {
+         return 3*Math.pow(x, 2) + 8*x;
+    }
+    
     private String generarEjemplo(int grado) {
         StringBuilder sb = new StringBuilder("C0 + ");
         for(int i=1; i<=grado; i++) {

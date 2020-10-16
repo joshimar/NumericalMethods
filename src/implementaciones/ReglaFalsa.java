@@ -21,11 +21,11 @@ public class ReglaFalsa extends MetodoNumerico {
     
     @Override
     public void leerParametros() {
-        funcionDestino =  (int) leerNumero("¿Qué función quieres utilizar? \n(1) polinomio \n(2) logarítmica", true);
-        if(funcionDestino == 1) {
-            int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
-            leerPolinomio(grado); 
-        }
+//        funcionDestino =  (int) leerNumero("¿Qué función quieres utilizar? \n(1) polinomio \n(2) logarítmica", true);
+//        if(funcionDestino == 1) {
+//            int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
+//            leerPolinomio(grado); 
+//        }
         inferior = leerNumero("¿Cuál el límite inferior?", false);
         superior = leerNumero("¿Cuál el límite superior?", false);
         limite =  (int) leerNumero("¿Cuál es el número máximo de iteraciones?", true);
@@ -57,10 +57,10 @@ public class ReglaFalsa extends MetodoNumerico {
         
         for(int i=0; i<limite; i++) {
             
-            ya=evaluarFuncionInterna(xa);
-            yb=evaluarFuncionInterna(xb);
+            ya=evaluarFuncion(xa);
+            yb=evaluarFuncion(xb);
             xc = obtenerCentro(xa, xb, ya, yb);
-            yc = evaluarFuncionInterna(xc);
+            yc = evaluarFuncion(xc);
             
             double error = xa*yc;
             
