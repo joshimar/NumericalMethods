@@ -9,10 +9,13 @@ import java.util.Scanner;
  */
 public abstract class MetodoNumerico {
     
+    protected double epsilon = 0.000000001; // Tolerancia de 9 decimales (estricta)
     protected double[] funcion; // Arreglo que guarda coheficientes de la funcion C0 + C1x + C2x^2 + C3x^3 ...
     protected String tab="\t"; // Caracter para generar tablas
-    protected DecimalFormat formato = new DecimalFormat("00000.00000"); // Con el que podemos imprimir vairables con muchos decimales solamente mostrando los necesarios del punto
-            
+    protected DecimalFormat formato = new DecimalFormat("00000.000000000"); // Con el que podemos imprimir vairables con muchos decimales solamente mostrando los necesarios del punto
+    protected int opcionSeleccionada; // ecuacion        
+    protected String opciones = "¿Qué ecuacion quieres usar?\n (1) ecuacion1 \n (2) ecuacion2 \n (3) ecuacion3";
+        
     public abstract void leerParametros();
     public abstract void calcular();
     public abstract String nombre();
@@ -129,10 +132,14 @@ public abstract class MetodoNumerico {
     }
     
     private double evaluarFuncionEstatica(double x) {
-        return Math.pow(x, 3) + 4*Math.pow(x, 2) - 10; 
+        // if(opcionSeleccionada == 1) ... else // regresas la ecuacion dependiendo del numero (opcion) seleccionadx
+        return Math.pow(x, 3) + 4*Math.pow(x, 2) - 10; // x^3 + 4x^2 - 10 
+//        return Math.cos(x); // Cos(x)
+//        return Math.exp(-x) - Math.log(x); // e^(-x) - ln(x)
     }
     
     private double evaluarDerivadaEstatica(double x) {
-         return 3*Math.pow(x, 2) + 8*x;
+         return 3*Math.pow(x, 2) + 8*x;  // Bisección
+//        return -Math.exp(-x) - 1/x; // Newton Rapshon
     }
 }

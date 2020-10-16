@@ -15,7 +15,6 @@ public class ReglaFalsa extends MetodoNumerico {
 
     private double inferior;
     private double superior;
-    private double epsilon;
     private int limite;
     private int funcionDestino;
     
@@ -26,20 +25,28 @@ public class ReglaFalsa extends MetodoNumerico {
 //            int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
 //            leerPolinomio(grado); 
 //        }
+        opcionSeleccionada =  (int) leerNumero(opciones, true);
         inferior = leerNumero("¿Cuál el límite inferior?", false);
         superior = leerNumero("¿Cuál el límite superior?", false);
         limite =  (int) leerNumero("¿Cuál es el número máximo de iteraciones?", true);
-        epsilon = 0.001;
     }
 
     @Override
     public void calcular() {
         try {
-            System.out.println("xa"+tab+tab+"xb"+tab+tab+"xc"+tab+tab+"f(xa)"+tab+tab+"f(xb)"+tab+tab+"f(c)"+tab+tab+"error");
+            System.out.println(
+                    "xa"+tab+tab+
+                    "xb"+tab+
+                    "xc"+tab+"  "+
+                    "f(xa)"+tab+
+                    "f(xb)"+tab+
+                    "f(c)"+tab+
+                    "error"
+            );
             double raiz = calcularRaiz();
-            System.out.println("La raíz encontrada es: "+raiz);
+            //System.out.println("La raíz encontrada es: "+raiz);
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -64,13 +71,15 @@ public class ReglaFalsa extends MetodoNumerico {
             
             double error = xa*yc;
             
-            System.out.println(formato.format(xa)+tab+
-                    formato.format(xb)+tab+
-                    formato.format(xc)+tab+
-                    formato.format(ya)+tab+
-                    formato.format(yb)+tab+
-                    formato.format(yc)+tab+
-                    formato.format(error)+tab);
+            System.out.println(
+                    formato.format(xa)+" "+
+                    formato.format(xb)+" "+
+                    formato.format(xc)+" "+
+                    formato.format(ya)+" "+
+                    formato.format(yb)+" "+
+                    formato.format(yc)+" "+
+                    formato.format(error)
+            );
             
             if (error < epsilon){                
                 return xc;

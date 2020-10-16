@@ -9,30 +9,29 @@ import metodosnumericos.MetodoNumerico;
 public class PuntoFijo extends MetodoNumerico {
 
     private double p0; // Punto inicial
-    private double epsilon; // Tolerancia
     private int max; // Número máximo de iteraciones
     private int grado ; // Problema definido para una ecuación de segundo o tercer grado
     
     @Override
     public void leerParametros() {
+        opcionSeleccionada =  (int) leerNumero(opciones, true);
         p0 = leerNumero("¿Cuál el punto inicial?", false);
         max =  (int) leerNumero("¿Cuál es el número máximo de iteraciones?", true);
         //grado =  (int) leerNumero("¿Cuál es el grado de la ecuacion? solamente puede ser 2 o 3", true);
-        //leerPolinomio(grado); 
-        epsilon = 0.001;//leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
+        //leerPolinomio(grado); \
     }
 
     @Override
     public void calcular() {
         try {
             System.out.println();
-            System.out.println("p"+tab+tab+"p0"+tab+tab+"evaluación");
+            System.out.println("p"+tab+tab+"p0"+tab+tab+"error");
             float resultado = (float) calcularRaiz();
             System.out.println();
-            System.out.println("La raíz encontrada es: "+resultado);
-            System.out.println();
+//            System.out.println("La raíz encontrada es: "+resultado);
+//            System.out.println();
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -43,17 +42,17 @@ public class PuntoFijo extends MetodoNumerico {
     
     private double calcularRaiz() throws Exception {
         for(int i=0; i<max; i++) {
-            double p = g(p0);
-            double evaluacion = p-p0;
+            double p = evaluarFuncion(p0);
+            double error = Math.abs(p-p0);
             
-            System.out.println(
-                    formato.format(p)+tab+
+            System.out.println(formato.format(p)+tab+
                     formato.format(p0)+tab+
-                    formato.format(evaluacion)+tab);
+                    formato.format(error)+tab);
             
-            if(Math.abs(evaluacion) < epsilon) {
+            if(error < epsilon) {
                 return p;
             }
+            
             p0=p;
         }
         throw new Exception("La raíz no pudo ser encontrada.");

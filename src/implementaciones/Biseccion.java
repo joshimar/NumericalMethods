@@ -10,7 +10,6 @@ public class Biseccion extends MetodoNumerico {
 
     private double limiteIzquierda;
     private double limiteDerecha;
-    private double epsilon;
     private int limite;
     private int interacciones;
     
@@ -18,11 +17,10 @@ public class Biseccion extends MetodoNumerico {
     public void leerParametros() {
         //int grado = (int) leerNumero("¿De qué grado es la ecuacion?", true);
         //leerPolinomio(grado);
+        opcionSeleccionada = (int) leerNumero(opciones, true);
         limiteIzquierda = leerNumero("¿Cuál el límite izquierdo inicial?", false);
         limiteDerecha = leerNumero("¿Cuál el límite derecho inicial?", false);
-        epsilon = 0.001; // leerNumero("¿Cuál es el epsilon a utilizar? Puede ser 0.001", true);
         limite = (int) leerNumero("Ingresa el número de interacciones", true);
-        
     }
 
     @Override
@@ -33,10 +31,10 @@ public class Biseccion extends MetodoNumerico {
             interacciones = 1;
             float resultado = (float) calcularRaiz();
             System.out.println();
-            System.out.println("La raíz encontrada es: "+resultado);
-            System.out.println();
+//            System.out.println("La raíz encontrada es: "+resultado);
+//            System.out.println();
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     
