@@ -119,9 +119,9 @@ public abstract class NumericalMethod {
     }
 
     private String prepareToParse() {
-        String result = expression.replace(" ", ""); // We don't really need spaces
+        String result = expression.replace(" ", ""); // We don't need spaces
         if(!result.startsWith(NEGATIVE+"") && !result.startsWith(POSITIVE+"")) {
-            result = "+"+result; // Make sure we have a sign even at the begining to proper parsing
+            result = "+"+result; // Make sure we start with a sign for proper parsing
         }
         return result.toLowerCase();
     }
@@ -160,8 +160,8 @@ public abstract class NumericalMethod {
      * Parse a term in the polynomial and load it in memory
      * @param i Position where the term to parse starts
      * @param expression The expression where we are parsing it from 
-     * @param term term that will fill the values into
-     * @return next position after finishing the parsing
+     * @param term Term that will fill the values into
+     * @return Next position after finishing the parsing
      */
     private int getTerm(int i, char[] expression, Term term) {
         StringBuilder sb = new StringBuilder("");

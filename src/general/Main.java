@@ -46,7 +46,7 @@ public class Main {
     }
     
     private double run() throws Exception {
-        String targetAlgorithm = reader.getString(METHOD_PROPERTY);
+        String targetAlgorithm = reader.getString(METHOD_PROPERTY).replace(" ", "").toLowerCase();
         NumericalMethod algorithm = instances.get(targetAlgorithm);
         System.out.println(algorithm.name());
         String expression = reader.getString(POLYNOMIAL_PROPERTY);
@@ -61,7 +61,7 @@ public class Main {
         for(Class<? extends NumericalMethod> algorithm : algorithms) {
             try {
                 NumericalMethod instance = algorithm.newInstance();
-                instances.put(instance.name(), instance);
+                instances.put(instance.name().replace(" ", "").toLowerCase(), instance);
             } catch (Exception e) { 
                 System.out.println("Algorithm "+algorithm.getSimpleName()+" could not be loaded. "+e.getMessage());
             } 

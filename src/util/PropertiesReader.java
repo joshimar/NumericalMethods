@@ -58,10 +58,10 @@ public class PropertiesReader {
         String line;
         
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            while((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null && line != "") {
                 line = line.trim();
-                if(line.startsWith(COMMENT)) {
-                    continue;
+                if(line.contains(COMMENT)) {
+                    line = line.substring(0, line.indexOf((COMMENT)));
                 }
                 String[] property = line.split(EQUALS);
                 if(property.length != 2) {
