@@ -1,14 +1,14 @@
 package algorithms;
 
 import static util.Constants.*;
-import general.NumericMethod;
+import general.NumericalMethod;
 import util.PropertiesReader;
 
 /**
  *
  * @author josh.isc@hotmail.com
  */
-public class NewtonRaphson extends NumericMethod {
+public class NewtonRaphson extends NumericalMethod {
     
     private double epsilon;
     private double initialValue;

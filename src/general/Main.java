@@ -17,9 +17,9 @@ import util.PropertiesReader;
 public class Main {
 
     // Map: algorithm-name -> algoritm instance
-    private Map<String, NumericMethod> instances;
+    private Map<String, NumericalMethod> instances;
     // Algorithms available:
-    private List<Class<? extends NumericMethod>> algorithms = Arrays.asList(NewtonRaphson.class, 
+    private List<Class<? extends NumericalMethod>> algorithms = Arrays.asList(NewtonRaphson.class, 
                     Bisection.class,
                     FixedPoint.class);
     
@@ -47,7 +47,7 @@ public class Main {
     
     private double run() throws Exception {
         String targetAlgorithm = reader.getString(METHOD_PROPERTY);
-        NumericMethod algorithm = instances.get(targetAlgorithm);
+        NumericalMethod algorithm = instances.get(targetAlgorithm);
         System.out.println(algorithm.name());
         String expression = reader.getString(POLYNOMIAL_PROPERTY);
         algorithm.readExpression(expression);
@@ -58,9 +58,9 @@ public class Main {
     
     private void loadInstances() {
         instances = new HashMap<>();
-        for(Class<? extends NumericMethod> algorithm : algorithms) {
+        for(Class<? extends NumericalMethod> algorithm : algorithms) {
             try {
-                NumericMethod instance = algorithm.newInstance();
+                NumericalMethod instance = algorithm.newInstance();
                 instances.put(instance.name(), instance);
             } catch (Exception e) { 
                 System.out.println("Algorithm "+algorithm.getSimpleName()+" could not be loaded. "+e.getMessage());

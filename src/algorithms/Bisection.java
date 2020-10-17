@@ -1,14 +1,14 @@
 package algorithms;
 
 import static util.Constants.*;
-import general.NumericMethod;
+import general.NumericalMethod;
 import util.PropertiesReader;
 
 /**
  *
  * @author josh.isc@hotmail.com
  */
-public class Bisection extends NumericMethod {
+public class Bisection extends NumericalMethod {
 
     private double lowerLimit;
     private double upperLimit;

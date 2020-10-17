@@ -1,14 +1,14 @@
 package algorithms;
 
 import static util.Constants.*;
-import general.NumericMethod;
+import general.NumericalMethod;
 import util.PropertiesReader;
 
 /**
  *
  * @author josh.isc@hotmail.com
  */
-public class FixedPoint extends NumericMethod {
+public class FixedPoint extends NumericalMethod {
 
     private double initialValue; 
     private double epsilon; 

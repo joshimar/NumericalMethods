@@ -1,19 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algorithms;
 
 import static util.Constants.*;
-import general.NumericMethod;
+import general.NumericalMethod;
 import util.PropertiesReader;
 
 /**
  *
  * @author josh.isc@hotmail.com
  */
-public class FalseRule extends NumericMethod {
+public class FalseRule extends NumericalMethod {
 
     private double lowerLimit;
     private double upperLimit;

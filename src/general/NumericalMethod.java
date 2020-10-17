@@ -12,10 +12,9 @@ import util.PropertiesReader;
  *
  * @author josh.isc@hotmail.com
  */
-public abstract class NumericMethod {
+public abstract class NumericalMethod {
     private String expression;
-    // exponent -> coefficent
-    private Map<Integer, Double> coefficents;
+    private Map<Integer, Double> coefficents; // exponent -> coefficent
     protected List<Term> equation;
     protected int iterationsLimit;
     protected int currentIteration;
