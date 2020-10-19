@@ -31,7 +31,7 @@ public class NewtonRaphson extends NumericalMethod {
     
     private double runNewtonRaphson() throws Exception {
         double x = initialValue;
-        double error = Double.MAX_VALUE;
+        double error = Double.POSITIVE_INFINITY;
         currentIteration = 0;
         
         printHeaders();
@@ -60,7 +60,7 @@ public class NewtonRaphson extends NumericalMethod {
             formatter.format(x)+tab+
             formatter.format(fx)+tab+
             formatter.format(derivative)+tab+
-            formatter.format(error)
+            (error == Double.POSITIVE_INFINITY ? "-" : formatter.format(error))
         );
     }
 

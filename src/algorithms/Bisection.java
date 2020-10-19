@@ -13,6 +13,7 @@ public class Bisection extends NumericalMethod {
     private double lowerLimit;
     private double upperLimit;
     private double epsilon;
+    private double previous;
     
     @Override
     public void readInputValues(PropertiesReader reader)  {
@@ -23,9 +24,9 @@ public class Bisection extends NumericalMethod {
 
     @Override
     public double compute() throws Exception {
-        System.out.println();
-        System.out.println("a"+tab+tab+"b"+tab+tab+"c"+tab+tab+"f(a)"+tab+tab+"f(b)"+tab+tab+"f(c)");
-        currentIteration = 0;
+        currentIteration = 0; // Start iteration count here since the bisection method is recursive
+        previous = Double.POSITIVE_INFINITY;
+        printHeaders();
         return runBisection();
     }
     
@@ -40,19 +41,18 @@ public class Bisection extends NumericalMethod {
         }
         
         double c = lowerLimit + (upperLimit - lowerLimit) / 2; // Get center of the current interval
+        double error = Math.abs(previous - c);
+        previous = c;
+        
+        if(error < epsilon) {
+            return c;
+        } 
+        
         double fc = evaluateFunction(c); 
         double fl = evaluateFunction(lowerLimit);
         double fu = evaluateFunction(upperLimit);
         
-        if(Math.abs(fc) < epsilon) {
-            return c;
-        } 
-        
-        printStep(lowerLimit, upperLimit, c, fl, fu, fc);
-        
-        if(upperLimit - lowerLimit < epsilon) { 
-            throw new Exception(notFoundMessage);
-        }
+        printStep(lowerLimit, upperLimit, c, fl, fu, fc, error);
         
         if(Math.signum(fl) == Math.signum(fc)) {
             lowerLimit = c; // Keep searching on the right half
@@ -65,12 +65,18 @@ public class Bisection extends NumericalMethod {
         throw new Exception(notFoundMessage);
     }
 
-    private void printStep(double lowerLimit, double upperLimit, double c, double fl, double fu, double fc) {
+    private void printStep(double lowerLimit, double upperLimit, double c, double fl, double fu, double fc, double error) {
         System.out.println(formatter.format(lowerLimit)+tab+
                 formatter.format(upperLimit)+tab+
                 formatter.format(c)+tab+
                 formatter.format(fl)+tab+
                 formatter.format(fu)+tab+
-                formatter.format(fc));
+                formatter.format(fc)+tab+
+                (error == Double.POSITIVE_INFINITY ? "-" : formatter.format(error))
+        );
+    }
+
+    private void printHeaders() {
+        System.out.println("a"+tab+tab+"b"+tab+tab+"c"+tab+tab+"f(a)"+tab+tab+"f(b)"+tab+tab+"f(c)"+tab+tab+"error");
     }
 }

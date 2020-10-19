@@ -27,7 +27,7 @@ public abstract class NumericalMethod {
         equation = new ArrayList<>();
         this.expression = expression;
         if(!validateEquation()) {
-            throw new Exception(expression+" is not a valid equation. \nAn example is "+generateExample(3));
+            throw new Exception(expression+" is not a valid equation. \nThe expression must be in the form "+generateExample(3)+" whare Cn are the constants/coefficients.");
         }
         equation.sort((a, b) -> {
             return (int) (a.power - b.power);
@@ -143,9 +143,9 @@ public abstract class NumericalMethod {
             }
             
             Term term = new Term();
-            i = getTerm(i+1, expression, term); // i will be forwarded to the position of the next sign
+            i = getTerm(i+1, expression, term)-1; // i will be forwarded to the position of the next sign
             
-            if(i == -1) {
+            if(i < 0) {
                 return false;
             }
             
@@ -222,6 +222,6 @@ public abstract class NumericalMethod {
         term.coefficient = coefficient;
         term.power = power;
         
-        return i-1;
+        return i;
     }
 }
