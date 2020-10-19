@@ -23,6 +23,7 @@ public class FalsePosition extends NumericalMethod {
 
     @Override
     public double compute() throws Exception {
+        printHeaders();
         return runFalseRule();
     }
 
@@ -36,8 +37,6 @@ public class FalsePosition extends NumericalMethod {
         double x, y;
         double ya=evaluateFunction(a);
         double yb=evaluateFunction(b); 
-        
-        printHeaders();
         
         for(int i=0; i<iterationsLimit; i++) {
             double dividend = ya*(b-a);

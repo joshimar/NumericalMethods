@@ -25,7 +25,7 @@ public class Bisection extends NumericalMethod {
     @Override
     public double compute() throws Exception {
         currentIteration = 0; // Start iteration count here since the bisection method is recursive
-        previous = Double.POSITIVE_INFINITY;
+        previous = Double.POSITIVE_INFINITY; // No previous evaluation, thus set to infinity
         printHeaders();
         return runBisection();
     }

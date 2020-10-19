@@ -55,7 +55,7 @@ public class Main {
         algorithm.readExpression(expression);
         algorithm.readIterationsLimit(reader);
         algorithm.readInputValues(reader);
-        System.out.println(algorithm.name()+" "+algorithm.toString());
+        System.out.println(algorithm.toString());
         return algorithm.compute();
     }
     

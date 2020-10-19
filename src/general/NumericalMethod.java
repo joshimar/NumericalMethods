@@ -98,16 +98,16 @@ public abstract class NumericalMethod {
         iterationsLimit = Math.abs(reader.getInt(ITERATIONS_LIMIT_PROPERTY));
     }
     
-    protected double getCoefficent(double exponent) {
+    protected double getCoefficent(int exponent) {
         return coefficents.getOrDefault(exponent, 0d);
     }
 
-    private String generateExample(int grado) {
+    private String generateExample(int degree) {
         StringBuilder sb = new StringBuilder("C0 + ");
-        for(int i=1; i<=grado; i++) {
+        for(int i=1; i<=degree; i++) {
             sb.append("C").append(i);
             sb.append("x^").append(i);
-            if(i<grado) {
+            if(i<degree) {
                 sb.append(" + ");
             } 
         }
