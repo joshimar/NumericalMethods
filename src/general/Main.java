@@ -48,11 +48,11 @@ public class Main {
     private double run() throws Exception {
         String targetAlgorithm = reader.getString(METHOD_PROPERTY).replace(" ", "").toLowerCase();
         NumericalMethod algorithm = instances.get(targetAlgorithm);
-        System.out.println(algorithm.name());
         String expression = reader.getString(POLYNOMIAL_PROPERTY);
         algorithm.readExpression(expression);
         algorithm.readIterationsLimit(reader);
         algorithm.readInputValues(reader);
+        System.out.println(algorithm.name()+" "+algorithm.toString());
         return algorithm.compute();
     }
     

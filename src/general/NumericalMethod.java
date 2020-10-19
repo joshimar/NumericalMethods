@@ -44,25 +44,30 @@ public abstract class NumericalMethod {
         for(int i=0; i<equation.size(); i++) {
             Term term = equation.get(i);
             
-            if(i==0 && term.coefficient == NEGATIVE) {
-                sb.append(term.coefficient);
-            } 
+            if(term.coefficient == 0.0) {
+                continue;
+            }
             
-            if(term.coefficient != 1) {
+            if(term.coefficient > 0.0 && i>0) {
+                sb.append(POSITIVE).append(SPACE);
+            }
+            
+            if(term.coefficient != 1.0) {
                 sb.append(term.coefficient);
             }
-            sb.append(Term.variable);
-            if(term.power != 1) {
+            
+            if(term.power > 0.0) {
+                sb.append(Term.variable);
+            }
+            if(term.power > 1.0) {
                 sb.append(POWER).append(term.power);
             }
             
-            if(i<equation.size()-2) {
-                sb.append(SPACE);
-                sb.append(term.coefficient > 0 ? POSITIVE : NEGATIVE);
+            if(i<equation.size()-1) {
                 sb.append(SPACE);
             }
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
     
     public double evaluateFunction(double value) throws Exception {
@@ -128,7 +133,6 @@ public abstract class NumericalMethod {
 
     private boolean validateEquation() throws Exception {
         char[] expression = prepareToParse().toCharArray();
-        int size = expression.length;
         
         for(int i=0; i<expression.length; i++) {
             char curr = expression[i];
@@ -138,13 +142,14 @@ public abstract class NumericalMethod {
                 return false;
             }
             
-            Term term = null;
+            Term term = new Term();
             i = getTerm(i+1, expression, term); // i will be forwarded to the position of the next sign
             
-            if(term == null) {
+            if(i == -1) {
                 return false;
             }
             
+            term.coefficient*=sign;
             equation.add(term);
         }
       
@@ -161,7 +166,7 @@ public abstract class NumericalMethod {
      * @param i Position where the term to parse starts
      * @param expression The expression where we are parsing it from 
      * @param term Term that will fill the values into
-     * @return Next position after finishing the parsing
+     * @return Last position after finishing the parsing current term
      */
     private int getTerm(int i, char[] expression, Term term) {
         StringBuilder sb = new StringBuilder("");
@@ -179,20 +184,22 @@ public abstract class NumericalMethod {
                 coefficient = Double.parseDouble(tmp);
             }
         } catch (Exception e) { 
-            return 0;
+            return -1;
         }
         
         if(i>=size || getSign(expression[i]) != 0) { // Check if it's a constant
-            term = new Term(coefficient, 0);
+            term.coefficient = coefficient;
+            term.power = 0;
             return i;
         }
         
         if(expression[i++] != Term.variable || i>=size) { // Make sure we have the variable
-            return 0;
+            return -1;
         }
         
-        if(expression[i] != POWER) {
-            term = new Term(coefficient, 1); // There's no exponent
+        if(expression[i] != POWER) { // There's no exponent
+            term.coefficient = coefficient;
+            term.power = 1;
             return i;
         }
         // We have the power character 
@@ -209,10 +216,12 @@ public abstract class NumericalMethod {
                 power = 1; // There's not an exponent
             }
         } catch (Exception e) { 
-            return 0;
+            return -1;
         }
         
-        term = new Term(coefficient, power);
-        return i;
+        term.coefficient = coefficient;
+        term.power = power;
+        
+        return i-1;
     }
 }

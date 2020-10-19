@@ -21,8 +21,7 @@ public class NewtonRaphson extends NumericalMethod {
 
     @Override
     public double compute() throws Exception {
-        System.out.println();
-        System.out.println("x"+tab+tab+"f(x)"+tab+tab+"f'(x)");
+        printHeaders();
         return this.runNewtonRaphson();
     }
     
@@ -63,5 +62,9 @@ public class NewtonRaphson extends NumericalMethod {
             formatter.format(derivative)+tab+
             formatter.format(error)
         );
+    }
+
+    private void printHeaders() {
+        System.out.println("x"+tab+tab+"f(x)"+tab+tab+"f'(x)"+tab+tab+"error");
     }
 }
