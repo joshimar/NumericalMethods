@@ -8,7 +8,7 @@ import util.PropertiesReader;
  *
  * @author josh.isc@hotmail.com
  */
-public class FalseRule extends NumericalMethod {
+public class FalsePosition extends NumericalMethod {
 
     private double lowerLimit;
     private double upperLimit;
@@ -23,57 +23,60 @@ public class FalseRule extends NumericalMethod {
 
     @Override
     public double compute() throws Exception {
-        System.out.println();
-        System.out.println("xa"+tab+tab+"xb"+tab+tab+"f(xa)"+tab+tab+"f(xb)"+tab+"nueva X"+tab+"error");
         return runFalseRule();
     }
 
     @Override
     public String name() {
-        return "Regla Falsa";
+        return "False Position";
     }
     
     private double runFalseRule() throws Exception {
-        double xa=lowerLimit, xb=upperLimit;
-        double x=lowerLimit;
-        double y;
-        double ya=evaluateFunction(lowerLimit);
-        double yb=evaluateFunction(upperLimit); 
+        double a=lowerLimit, b=upperLimit;
+        double x, y;
+        double ya=evaluateFunction(a);
+        double yb=evaluateFunction(b); 
+        
+        printHeaders();
         
         for(int i=0; i<iterationsLimit; i++) {
-            double numerador = ya*(xb-xa);
-            double denominador = yb-ya;
+            double dividend = ya*(b-a);
+            double divisor = yb-ya;
             
-            if (denominador == 0){
+            if (divisor == 0){
                throw new Exception(notFoundMessage);
             }
             
-            x = xa - numerador / denominador;
+            x = a - dividend / divisor;
             y = evaluateFunction(x);
             
-            if (xa*y<epsilon){                
+            printStep(a, b, ya, yb, x, y);
+            
+            if (Math.abs(y) < epsilon){                
                 return x;
             }
             
-            printStep(xa, xb, ya, yb, x);
-            
-            if (ya*y<0) {
-                upperLimit=x;
+            if (ya*y < 0) {
+                b=x;
             } else {
-                lowerLimit=x;
+                a=x;
             }
         }
         
         throw new Exception(notFoundMessage);
     }
 
-    private void printStep(double xa, double xb, double ya, double yb, double x) {
-        System.out.println(
-            formatter.format(xa)+tab+
-            formatter.format(xb)+tab+
+    private void printStep(double a, double b, double ya, double yb, double c, double fc) {
+        System.out.println(formatter.format(a)+tab+
+            formatter.format(b)+tab+
             formatter.format(ya)+tab+
             formatter.format(yb)+tab+
-            formatter.format(x)+tab
+            formatter.format(c)+tab+
+            formatter.format(fc)
         );
+    }
+
+    private void printHeaders() {
+        System.out.println("a"+tab+tab+"b"+tab+tab+"f(a)"+tab+tab+"f(b)"+tab+tab+"c"+tab+tab+"f(c)");
     }
 }

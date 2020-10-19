@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * @author josh.isc@hotmail.com
  */
 public class Constants {
-    public static final String notFoundMessage = "Root not found.";
+    public static final String notFoundMessage = "Root not found using the given parameters.";
     public static final DecimalFormat formatter = new DecimalFormat("00000.00000"); 
     public static final char tab='\t'; 
     public static final char NEW_LINE='\n';

@@ -1,9 +1,7 @@
 package general;
 
 import static util.Constants.*;
-import algorithms.Bisection;
-import algorithms.NewtonRaphson;
-import algorithms.FixedPoint;
+import algorithms.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +17,10 @@ public class Main {
     // Map: algorithm-name -> algoritm instance
     private Map<String, NumericalMethod> instances;
     // Algorithms available:
-    private List<Class<? extends NumericalMethod>> algorithms = Arrays.asList(NewtonRaphson.class, 
+    private List<Class<? extends NumericalMethod>> algorithms = Arrays.asList(
+                    NewtonRaphson.class, 
                     Bisection.class,
+                    FalsePosition.class,
                     FixedPoint.class);
     
     private PropertiesReader reader;
@@ -38,7 +38,7 @@ public class Main {
         try {
             Main main = new Main(args[0]);
             double result = main.run();
-            System.out.println("The root found is: "+result);
+            System.out.println("Root found at x="+result);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -48,6 +48,9 @@ public class Main {
     private double run() throws Exception {
         String targetAlgorithm = reader.getString(METHOD_PROPERTY).replace(" ", "").toLowerCase();
         NumericalMethod algorithm = instances.get(targetAlgorithm);
+        if(algorithm == null) {
+            throw new Exception("Algorithm "+reader.getString(METHOD_PROPERTY).trim()+" not supported.");
+        }
         String expression = reader.getString(POLYNOMIAL_PROPERTY);
         algorithm.readExpression(expression);
         algorithm.readIterationsLimit(reader);

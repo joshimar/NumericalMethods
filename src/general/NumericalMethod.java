@@ -27,7 +27,7 @@ public abstract class NumericalMethod {
         equation = new ArrayList<>();
         this.expression = expression;
         if(!validateEquation()) {
-            throw new Exception(expression+" is not a valid equation. \nThe expression must be in the form "+generateExample(3)+" whare Cn are the constants/coefficients.");
+            throw new Exception(expression+" is not a valid equation. \nThe expression must be in the form "+generateExample(3)+" where Cn are the constants/coefficients.");
         }
         equation.sort((a, b) -> {
             return (int) (a.power - b.power);
@@ -193,15 +193,16 @@ public abstract class NumericalMethod {
             return i;
         }
         
-        if(expression[i++] != Term.variable || i>=size) { // Make sure we have the variable
+        if(i>=size || expression[i++] != Term.variable) { // Make sure we have the variable
             return -1;
         }
         
-        if(expression[i] != POWER) { // There's no exponent
+        if(i>=size || expression[i] != POWER) { // There's no exponent
             term.coefficient = coefficient;
             term.power = 1;
             return i;
         }
+        
         // We have the power character 
         sb = new StringBuilder("");
         while(++i<size && getSign(expression[i]) == 0) { // We need to read all the numbers before the next appearance of the sign
