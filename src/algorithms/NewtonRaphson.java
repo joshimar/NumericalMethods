@@ -21,7 +21,6 @@ public class NewtonRaphson extends NumericalMethod {
 
     @Override
     public double compute() throws Exception {
-        printHeaders();
         return this.runNewtonRaphson();
     }
     
@@ -35,6 +34,7 @@ public class NewtonRaphson extends NumericalMethod {
         double error = Double.MAX_VALUE;
         currentIteration = 0;
         
+        printHeaders();
         while (error >= epsilon && currentIteration++ < iterationsLimit) { 
             
             double derivative = evaluateDerivative(x);
