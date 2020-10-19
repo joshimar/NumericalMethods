@@ -49,11 +49,11 @@ public class FixedPoint extends NumericalMethod {
     
     // Función iteradora
     private double g(double x) throws Exception {
-        int grade = equation.get(equation.size()-1).power;
-        if(grade != 2 && grade != 3) {
-            throw new Exception(toString()+" is not currently supported by "+name()+" please implement its g(x) manually.");
+        int degree = equation.get(equation.size()-1).power;
+        if(degree != 2 && degree != 3) {
+            throw new Exception("g(x) for f(x)="+toString()+" is not currently supported by "+name()+" please implement its g(x) manually.");
         }
-        switch(grade) {
+        switch(degree) {
             case 2: return g2(x);
             case 3: return g3(x);
             default: return customG(x);
@@ -61,7 +61,7 @@ public class FixedPoint extends NumericalMethod {
     }
     
     /**
-     * g(x) for an equation of third grade.
+     * g(x) for an equation of third degree.
      * 
      * Solution:
      * 
@@ -92,7 +92,7 @@ public class FixedPoint extends NumericalMethod {
     }
     
     /**
-     * g(x) for an equation of second grade.
+     * g(x) for an equation of second degree.
      * 
      * Solution:
      * 
